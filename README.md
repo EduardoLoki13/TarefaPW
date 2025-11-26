@@ -41,3 +41,4 @@ Tabelas essenciais:
 usuarios (id, nome, email, senha)
 noticias (id_noticia, titulo, link, fonte, confiavel, criado_em)
 votes (id_vote, id_noticia, id_user, util)
+<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/d7f6fa25-dc36-4a8a-9afa-5330549cc600" />
