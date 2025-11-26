@@ -1,0 +1,18 @@
+/* style.css */
+body { font-family: Arial, sans-serif; background:#0f1720; color:#e6eef3; margin:0; padding:0; }
+.container { width:90%; max-width:900px; margin:30px auto; background:#0b1220; padding:20px; border-radius:10px; box-shadow:0 6px 24px rgba(0,0,0,0.6); }
+.top { display:flex; justify-content:space-between; align-items:center;}
+a { color:#76e4c5; text-decoration:none; }
+input[type="text"], input[type="email"], input[type="password"], button { display:block; width:100%; padding:10px; margin:8px 0; border-radius:6px; border:0; }
+button { background:#16a34a; color:#fff; cursor:pointer; }
+button:hover { filter:brightness(0.95); }
+.lista { display:grid; grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); gap:12px; margin-top:12px;}
+.card { background:#071227; padding:12px; border-radius:8px; text-align:left; }
+.card.full { max-width:100%; }
+.badge { display:inline-block; padding:6px 10px; border-radius:20px; font-size:12px; margin-top:6px; text-transform:capitalize; }
+.badge.ok { background:#052e16; color:#8ef3b5; }
+.badge.alerta { background:#2b2410; color:#ffd27a; }
+.badge.erro { background:#2a0a0a; color:#ff9b9b; }
+.erro { color:#ff9b9b; }
+.ok { color:#8ef3b5; }
+.vote-btn { display:inline-block; padding:8px 14px; margin-right:8px; border-radius:6px; border:0; cursor:pointer; background:#0ea5a9; color:#062022; }
