@@ -1,76 +1,113 @@
 <?php
-include 'conexao.php';
-$busca = trim($_GET['busca'] ?? '');
-$noticia = null;
-if ($busca !== '') {
-    // busca por título exato parcial ou link
-    $sql = "SELECT * FROM noticias WHERE titulo LIKE ? OR link LIKE ? LIMIT 1";
-    $param = "%{$busca}%";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ss', $param, $param);
-    $stmt->execute();
-    $res = $stmt->get_result();
-    $noticia = $res->fetch_assoc();
-    $stmt->close();
-}
+include('conexao.php');
+
+$busca = $_GET['busca'] ?? '';
 $userId = $_SESSION['user_id'] ?? null;
+
+$sql = $conn->prepare("SELECT * FROM noticias WHERE titulo LIKE ? OR link LIKE ? LIMIT 1");
+$like = "%$busca%";
+$sql->bind_param("ss", $like, $like);
+$sql->execute();
+$resultado = $sql->get_result();
+$noticia = $resultado->fetch_assoc();
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="utf-8">
-<title>Resultado - FakeCheck</title>
-<link rel="stylesheet" href="style.css">
-<script src="script.js" defer></script>
+    <meta charset="UTF-8">
+    <title>Resultado - FakeCheck</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="container">
-  <a href="index.php">← Voltar</a>
-  <?php if (!$noticia): ?>
-    <h2>Nenhuma notícia encontrada</h2>
-    <p>Você pode sugerir uma notícia ao administrador ou, se for admin, cadastrá-la.</p>
-  <?php else: 
-      $status = $noticia['confiavel'];
-      $class = $status=='sim' ? 'ok' : ($status=='suspeita' ? 'alerta' : 'erro');
-  ?>
-    <h2 class="<?php echo $class; ?>">
-      <?php echo ($status=='sim' ? '✅ Notícia confiável' : ($status=='suspeita' ? '⚠️ Notícia suspeita' : '❌ Notícia falsa')); ?>
-    </h2>
-    <div class="card full">
-      <h3><?php echo htmlspecialchars($noticia['titulo']); ?></h3>
-      <?php if($noticia['link']): ?>
-        <p><a href="<?php echo htmlspecialchars($noticia['link']); ?>" target="_blank">Abrir fonte</a></p>
-      <?php endif; ?>
-      <p><b>Fonte:</b> <?php echo htmlspecialchars($noticia['fonte']); ?></p>
-      <p><b>Cadastrada em:</b> <?php echo $noticia['criado_em']; ?></p>
+    <a href="index.php">⬅ Voltar</a>
+    <h1>Resultado da Verificação</h1>
 
-      <hr>
-      <div id="voto-area">
-        <p>Esse resultado foi útil?</p>
-        <button class="vote-btn" data-id="<?php echo $noticia['id_noticia']; ?>" data-val="sim">Sim</button>
-        <button class="vote-btn" data-id="<?php echo $noticia['id_noticia']; ?>" data-val="nao">Não</button>
-        <div id="vote-msg"></div>
-      </div>
+    <?php if(!$noticia): ?>
+        <p class="erro">⚠ Nenhuma notícia encontrada no sistema.</p>
+    
+    <?php else: 
+        $status = $noticia['confiavel'];
+        $classe = $status == "sim" ? "ok" : ($status == "suspeita" ? "alerta" : "erro");
+        $texto = $status == "sim" ? "✅ Notícia confiável" : ($status == "suspeita" ? "⚠ Notícia suspeita" : "❌ Notícia falsa");
+    ?>
 
-      <hr>
-      <div>
-        <h4>Estatísticas de votos</h4>
-        <?php
-          $s = $conn->prepare("SELECT util, COUNT(*) as cnt FROM votes WHERE id_noticia = ? GROUP BY util");
-          $s->bind_param('i', $noticia['id_noticia']);
-          $s->execute();
-          $res = $s->get_result();
-          $sim=0; $nao=0;
-          while($row = $res->fetch_assoc()){
-            if($row['util']=='sim') $sim = $row['cnt'];
-            if($row['util']=='nao') $nao = $row['cnt'];
-          }
-          $total = $sim + $nao;
-          echo "<p>Úteis: $sim — Não úteis: $nao — Total: $total</p>";
+        <div class="resultado <?= $classe ?>">
+            <h2><?= $texto ?></h2>
+            <p><b>Título:</b> <?= $noticia['titulo'] ?></p>
+            <p><b>Fonte:</b> <?= $noticia['fonte'] ?></p>
+            <p><b>Data:</b> <?= $noticia['criado_em'] ?></p>
+        </div>
+
+        <hr><br>
+
+        <!-- ================= SISTEMA DE VOTO ================= -->
+
+        <?php if(!$userId): ?>
+            <p class="alerta">🔒 Você precisa estar <a href="login.php">logado</a> para votar.</p>
+
+        <?php else: 
+            // verifica se usuário já votou
+            $check = $conn->prepare("SELECT * FROM votes WHERE id_noticia=? AND id_user=?");
+            $check->bind_param("ii", $noticia['id_noticia'], $userId);
+            $check->execute();
+            $check->store_result();
         ?>
-      </div>
-    </div>
-  <?php endif; ?>
+
+            <?php if($check->num_rows > 0): ?>  
+                <p class="ok">✔ Você já votou nesta notícia.</p>
+
+            <?php else: ?>
+                <form id="feedbackForm" action="vote.php" method="post">
+                    <input type="hidden" name="id_noticia" value="<?= $noticia['id_noticia'] ?>">
+                    <p>Esse resultado foi útil?</p>
+                    <button type="submit" name="util" value="sim">Sim</button>
+                    <button type="submit" name="util" value="nao">Não</button>
+                </form>
+            <?php endif; ?>
+
+        <?php endif; ?>
+
+        <br>
+        <hr>
+
+        <!-- ================= GRÁFICO DE VOTOS ================= -->
+
+        <?php
+            $v = $conn->prepare("SELECT util, COUNT(*) AS total FROM votes WHERE id_noticia=? GROUP BY util");
+            $v->bind_param("i",$noticia['id_noticia']);
+            $v->execute();
+            $res = $v->get_result();
+
+            $sim=0; $nao=0;
+            while($r=$res->fetch_assoc()){
+                if($r['util']=="sim") $sim=$r['total'];
+                if($r['util']=="nao") $nao=$r['total'];
+            }
+        ?>
+
+        <h3>📊 Resultados da votação</h3>
+        <p>Sim: <?= $sim ?> | Não: <?= $nao ?> | Total: <?= $sim+$nao ?></p>
+
+        <canvas id="graficoVotos" style="width:100%; max-width:380px;"></canvas>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+        new Chart(document.getElementById("graficoVotos"), {
+            type: "pie",
+            data: {
+                labels: ["Útil", "Não útil"],
+                datasets: [{
+                    data: [<?= $sim ?>, <?= $nao ?>],
+                    backgroundColor: ["#00ff9d","#ff6b6b"]
+                }]
+            }
+        });
+        </script>
+
+    <?php endif; ?>
+
 </div>
 </body>
 </html>
+
