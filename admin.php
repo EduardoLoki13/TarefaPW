@@ -1,11 +1,5 @@
 <?php
 include "conexao.php";
-if(!isset($_SESSION)) session_start();
-if(!isset($_SESSION['user_id'])) {
-    header("Location: login.php?erro=admin");
-    exit;
-}
-?>
 
 // Permite só logado (simples)
 if(!isset($_SESSION['user_id'])){
