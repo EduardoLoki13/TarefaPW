@@ -11,7 +11,7 @@ input[type="text"], input[type="email"], input[type="password"], button {
     transition:0.25s ease;
 }
 
-button { background:#16a34a; color:#fff; cursor:pointer; }
+button { background:#16a34a; color:#ffffff; cursor:pointer; }
 button:hover { transform:scale(1.05); filter:brightness(1.1); }
 button:active { transform:scale(0.92); }
 
