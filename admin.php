@@ -9,30 +9,6 @@ if(!isset($_SESSION['user_id'])) {
 ?>
 
 
-// Permite só logado (simples)
-if(!isset($_SESSION['user_id'])){
-    die("<p style='color:white;'>Você precisa estar logado para cadastrar notícias.</p><a href='login.php'>Entrar</a>");
-}
-
-$msg = "";
-
-if(isset($_POST['cadastrar'])){
-    $titulo = $_POST['titulo'];
-    $link   = $_POST['link'];
-    $fonte  = $_POST['fonte'];
-    $status = $_POST['status'];
-
-    $sql = $conn->prepare("INSERT INTO noticias (titulo,link,fonte,confiavel) VALUES (?,?,?,?)");
-    $sql->bind_param("ssss",$titulo,$link,$fonte,$status);
-
-    if($sql->execute()){
-        $msg = "<p class='ok'>Notícia cadastrada com sucesso!</p>";
-    } else {
-        $msg = "<p class='erro'>Erro ao cadastrar.</p>";
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
