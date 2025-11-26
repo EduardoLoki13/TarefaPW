@@ -22,7 +22,9 @@ $userName = $_SESSION['user_name'] ?? null;
       <?php endif; ?>
     </div>
   </header>
-
+  <?php if($userId): ?>
+    <a href="admin.php" class="btn-admin">Painel Admin ⚙</a>
+<?php endif; ?>
   <main>
     <p>Cole o título ou link de uma notícia para verificar.</p>
     <form action="resultado.php" method="get">

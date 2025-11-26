@@ -45,4 +45,8 @@ $msg = $_GET['msg'] ?? '';
   <p>Não tem conta? <a href="register.php">Cadastre-se</a></p>
 </div>
 </body>
+<?php if(isset($_GET['erro']) && $_GET['erro']=="admin"): ?>
+    <p style="color:red;">Você precisa estar logado para acessar o painel administrativo.</p>
+<?php endif; ?>
+
 </html>
