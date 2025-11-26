@@ -12,7 +12,7 @@ if(!isset($_SESSION['user_id'])) {
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=2">
 <meta charset="UTF-8">
 <title>Cadastro de Notícias</title>
 </head>

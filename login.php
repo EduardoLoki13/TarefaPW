@@ -30,7 +30,7 @@ $msg = $_GET['msg'] ?? '';
 <head>
 <meta charset="utf-8">
 <title>Login - FakeCheck</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 <div class="container">
