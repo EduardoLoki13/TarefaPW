@@ -43,33 +43,28 @@ $noticia = $resultado->fetch_assoc();
 
         <!-- ================= SISTEMA DE VOTO ================= -->
 
-        <?php if(!$userId): ?>
-            <p class="alerta">🔒 Você precisa estar <a href="login.php">logado</a> para votar.</p>
+        <div id="voto-area">
 
-        <?php else: 
-            // verifica se usuário já votou
-            $check = $conn->prepare("SELECT * FROM votes WHERE id_noticia=? AND id_user=?");
-            $check->bind_param("ii", $noticia['id_noticia'], $userId);
-            $check->execute();
-            $check->store_result();
-        ?>
+<?php if(!$userId): ?>
+    <p class="alerta">🔒 Faça <a href='login.php'>login</a> para votar</p>
 
-            <?php if($check->num_rows > 0): ?>  
-                <p class="ok">✔ Você já votou nesta notícia.</p>
+<?php else: 
+    $check = $conn->prepare("SELECT id_vote FROM votes WHERE id_noticia=? AND id_user=? LIMIT 1");
+    $check->bind_param("ii", $noticia['id_noticia'], $userId);
+    $check->execute();
+    $check->store_result();
 
-            <?php else: ?>
-                <form id="feedbackForm" action="vote.php" method="post">
-                    <input type="hidden" name="id_noticia" value="<?= $noticia['id_noticia'] ?>">
-                    <p>Esse resultado foi útil?</p>
-                    <button type="submit" name="util" value="sim">Sim</button>
-                    <button type="submit" name="util" value="nao">Não</button>
-                </form>
-            <?php endif; ?>
+    if($check->num_rows > 0): ?>
+        <p class='ok'>✔ Você já votou nesta notícia</p>
 
-        <?php endif; ?>
+    <?php else: ?>
+        <button onclick="votar(<?= $noticia['id_noticia'] ?>,'sim')" class="vote">Sim</button>
+        <button onclick="votar(<?= $noticia['id_noticia'] ?>,'nao')" class="vote">Não</button>
+        <p id="retorno"></p>
+    <?php endif; ?>
 
-        <br>
-        <hr>
+<?php endif; ?>
+</div>
 
         <!-- ================= GRÁFICO DE VOTOS ================= -->
 
@@ -109,5 +104,22 @@ $noticia = $resultado->fetch_assoc();
 
 </div>
 </body>
+<script>
+function votar(id,val){
+    fetch("vote.php",{
+        method:"POST",
+        headers:{ "Content-Type":"application/x-www-form-urlencoded" },
+        body:`id_noticia=${id}&util=${val}`
+    })
+    .then(r=>r.json())
+    .then(d=>{
+        document.getElementById("retorno").innerText = d.msg;
+
+        // Atualiza gráfico sem sair da página
+        setTimeout(()=>location.reload(),800)
+    });
+}
+</script>
+
 </html>
 
