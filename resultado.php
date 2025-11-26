@@ -16,7 +16,7 @@ $noticia = $resultado->fetch_assoc();
 <head>
     <meta charset="UTF-8">
     <title>Resultado - FakeCheck</title>
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="container">
