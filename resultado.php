@@ -35,8 +35,19 @@ $noticia = $resultado->fetch_assoc();
         <div class="resultado <?= $classe ?>">
             <h2><?= $texto ?></h2>
             <p><b>Título:</b> <?= $noticia['titulo'] ?></p>
+
             <p><b>Fonte:</b> <?= $noticia['fonte'] ?></p>
+            <?php if(!empty($noticia['link'])): ?>
+
+              <p><b>Link da matéria:</b> 
+            <a href="<?= $noticia['link'] ?>" target="_blank" style="color:#00b7ff;">
+              Acessar notícia original 🔗
+            </a>
+            </p>
+            <?php endif; ?>
+
             <p><b>Data:</b> <?= $noticia['criado_em'] ?></p>
+
         </div>
 
         <hr><br>
