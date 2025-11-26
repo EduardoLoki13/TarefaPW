@@ -7,7 +7,7 @@ $userName = $_SESSION['user_name'] ?? null;
 <head>
 <meta charset="utf-8">
 <title>FakeCheck - Home</title>
-<link rel="stylesheet" href="style.css">
+<link rel="" href="">
 <script src="script.js" defer></script>
 </head>
 <body>
