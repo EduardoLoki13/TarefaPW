@@ -20,8 +20,6 @@ if(!isset($_SESSION['user_id'])) {
 <div class="container">
 <h2>Cadastrar Notícias</h2>
 
-<?= $msg ?>
-
 <form method="post">
     <input type="text" name="titulo" placeholder="Título da notícia" required>
     <input type="text" name="link" placeholder="Link da matéria (opcional)">
