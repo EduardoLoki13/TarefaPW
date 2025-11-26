@@ -28,6 +28,25 @@ $userName = $_SESSION['user_name'] ?? null;
       <input type="text" name="busca" placeholder="Título ou link..." required>
       <button type="submit">Verificar</button>
     </form>
+    <?php
+if(!isset($_SESSION)) session_start();
+$userId = $_SESSION['user_id'] ?? null;
+?>
+
+<?php if($userId): ?>
+    <a href="admin.php" class="btn-admin" style="
+        padding:10px;
+        background:#0077ff;
+        color:white;
+        border-radius:6px;
+        text-decoration:none;
+        font-weight:bold;
+        margin-top:10px;
+        display:inline-block;
+    ">
+        Painel Admin ⚙
+    </a>
+<?php endif; ?>
 
     <hr>
     <h3>Últimas notícias cadastradas</h3>

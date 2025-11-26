@@ -1,5 +1,13 @@
 <?php
 include "conexao.php";
+if(!isset($_SESSION)) session_start();
+
+if(!isset($_SESSION['user_id'])) {
+    echo "<script>alert('Você não está logado!');window.location='index.php';</script>";
+    exit;
+}
+?>
+
 
 // Permite só logado (simples)
 if(!isset($_SESSION['user_id'])){
