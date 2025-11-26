@@ -1,124 +1,117 @@
-style.css
+/* ====================== RESET ====================== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
 
-/* ==================== ESTILO GERAL ====================== */
+/* ====================== BASE DO SITE ====================== */
 
 body{
-    background: #0f0f0f;
-    color: #f1f1f1;
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
+    background:#f2f2f2;  /* Mantido igual ao original */
+    color:#222;
 }
 
 .container{
-    width: 85%;
-    max-width: 900px;
-    background: #151515;
-    margin: 40px auto;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0px 12px rgba(255,255,255,0.08);
-    animation: fadeIn 0.8s ease;
+    width:80%;
+    max-width:900px;
+    background:white;
+    margin:40px auto;
+    padding:30px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    animation:fadeIn .7s ease; /* Entrada com animação */
 }
 
-@keyframes fadeIn {
-    from{ opacity:0; transform: translateY(10px); }
-    to{ opacity:1; transform: translateY(0); }
+/* Animação suave de entrada */
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
 }
 
-h1,h2,h3{
-    text-align: center;
-    font-weight: bold;
+/* ====================== TÍTULOS ====================== */
+
+h1, h2, h3{
+    text-align:center;
+    margin-bottom:15px;
 }
 
-/* ==================== MENSAGENS DE STATUS ====================== */
+/* ====================== BOTÕES ====================== */
 
-.ok{
-    background: #00c875;
-    padding: 8px;
-    border-radius: 6px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.alerta{
-    background: #ffbb00;
-    padding: 8px;
-    border-radius: 6px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.erro{
-    background: #ff5858;
-    padding: 8px;
-    border-radius: 6px;
-    font-weight: bold;
-    text-align: center;
-}
-
-/* ==================== BOTÕES E ANIMAÇÃO ====================== */
-
-button, .btn-admin, a.botao{
-    background: linear-gradient(45deg,#006eff,#00d4ff);
-    color: #fff;
-    padding: 12px 20px;
-    border-radius: 8px;
-    text-decoration:none;
-    font-size: 16px;
-    font-weight:bold;
-    display:inline-block;
-    margin: 6px;
+button, .btn-admin, input[type=submit], .vote{
+    padding:10px 18px;
+    border-radius:6px;
     border:none;
+    background:#0077ff;      /* Cor continua simples */
+    color:white;
+    font-size:15px;
+    font-weight:bold;
     cursor:pointer;
-    transition: 0.3s ease;
+    margin:5px;
+    transition:.25s ease;    /* >>> Animação ativada */
 }
 
-/* Animação hover */
-button:hover, .btn-admin:hover, a.botao:hover{
-    transform: scale(1.08);
-    filter: brightness(1.2);
+button:hover, .btn-admin:hover, input[type=submit]:hover, .vote:hover{
+    transform:scale(1.08);   /* Cresce no hover */
+    filter:brightness(1.2);
 }
 
-/* Efeito "click" */
-button:active, .btn-admin:active, a.botao:active{
-    transform: scale(0.95);
-    filter: brightness(0.8);
+button:active, .vote:active, .btn-admin:active{
+    transform:scale(.93);    /* Aperta no clique */
 }
 
-/* ==================== CARD RESULTADO ====================== */
+/* ====================== LINKS ====================== */
 
-.resultado{
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    animation: fadeInUp 0.6s ease-out;
-}
-
-@keyframes fadeInUp{
-    from{ opacity:0; transform: translateY(15px); }
-    to{ opacity:1; transform: translateY(0); }
-}
-
-/* Cores automáticas */
-.resultado.ok       { border: 2px solid #00ff9d; }
-.resultado.alerta   { border: 2px solid #ffe249; }
-.resultado.erro     { border: 2px solid #ff5e5e; }
-
-/* ==================== GRÁFICO AJUSTE ====================== */
-
-canvas{
-    display: block;
-    margin: 20px auto;
-}
-
-/* ==================== LINKS ====================== */
 a{
-    color:#71c9ff;
     text-decoration:none;
-    transition:0.3s;
+    color:#0077ff;
+    font-weight:bold;
+    transition:.3s;
 }
 
 a:hover{
-    color:#00aaff;
+    letter-spacing:1px;
+    opacity:.75;
+}
+
+/* ====================== RESULTADO ====================== */
+
+.resultado{
+    border:2px solid #ccc;
+    padding:18px;
+    border-radius:10px;
+    margin-bottom:25px;
+    transition:.3s;          /* animação adicionada */
+}
+
+.resultado:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 10px rgba(0,0,0,.15); /* brilho leve */
+}
+
+/* COLORAÇÕES ORIGINAIS MANTIDAS */
+.resultado.ok{border-color:#00c853}
+.resultado.alerta{border-color:#ffeb3b}
+.resultado.erro{border-color:#ff4444}
+
+/* ====================== ALERTAS ====================== */
+
+.ok,.alerta,.erro{
+    padding:10px;
+    border-radius:6px;
+    margin-top:10px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.ok{background:#b9ffd8;}
+.alerta{background:#fff6a5;}
+.erro{background:#ffb9b9;}
+
+/* ====================== GRÁFICO ====================== */
+
+canvas{
+    margin:20px auto;
+    display:block;
 }
