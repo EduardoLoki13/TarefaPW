@@ -28,6 +28,7 @@ Sistema web que permite pesquisar notícias cadastradas, verificar se são confi
 | PHP | Backend e autenticação |
 | MySQL | Armazenamento de dados |
 | Chart.js | Gráfico de votos |
+<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/d7f6fa25-dc36-4a8a-9afa-5330549cc600" />
 
 
 
@@ -56,4 +57,4 @@ noticias (id_noticia, titulo, link, fonte, confiavel, criado_em)
 votes (id_vote, id_noticia, id_user, util)
 
 
-<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/d7f6fa25-dc36-4a8a-9afa-5330549cc600" />
+
