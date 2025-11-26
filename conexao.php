@@ -1,8 +1,8 @@
 <?php
-// conexao.php
+
 $host = 'localhost';
 $user = 'root';
-$pass = ''; // ajuste conforme seu ambiente
+$pass = ''; 
 $dbname = 'fakecheck_db';
 
 $conn = new mysqli($host, $user, $pass, $dbname);
