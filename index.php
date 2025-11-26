@@ -22,16 +22,17 @@ $userName = $_SESSION['user_name'] ?? null;
       <?php endif; ?>
     </div>
   </header>
-  <?php if($userId): ?>
-    <a href="admin.php" class="btn-admin">Painel Admin ⚙</a>
-<?php endif; ?>
   <main>
     <p>Cole o título ou link de uma notícia para verificar.</p>
     <form action="resultado.php" method="get">
       <input type="text" name="busca" placeholder="Título ou link..." required>
       <button type="submit">Verificar</button>
     </form>
-
+    <?php
+include "conexao.php";
+if(!isset($_SESSION)) session_start();
+$userId = $_SESSION['user_id'] ?? null;
+?>
     <hr>
     <h3>Últimas notícias cadastradas</h3>
     <div class="lista">
