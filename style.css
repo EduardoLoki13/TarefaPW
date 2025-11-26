@@ -1,117 +1,71 @@
-/* ====================== RESET ====================== */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+/* style.css */
+body { font-family: Arial, sans-serif; background:#0f1720; color:#e6eef3; margin:0; padding:0; }
+.container { width:90%; max-width:900px; margin:30px auto; background:#0b1220; padding:20px; border-radius:10px; box-shadow:0 6px 24px rgba(0,0,0,0.6); animation:fadeIn .9s ease-out; }
+.top { display:flex; justify-content:space-between; align-items:center;}
+a { color:#76e4c5; text-decoration:none; transition:.3s; }
+a:hover { letter-spacing:1px; opacity:.8; }
+
+/* Inputs e botões */
+input[type="text"], input[type="email"], input[type="password"], button { 
+    display:block; width:100%; padding:10px; margin:8px 0; border-radius:6px; border:0; background:#132034; color:white;
+    transition:0.25s ease;
 }
 
-/* ====================== BASE DO SITE ====================== */
+button { background:#16a34a; color:#fff; cursor:pointer; }
+button:hover { transform:scale(1.05); filter:brightness(1.1); }
+button:active { transform:scale(0.92); }
 
-body{
-    background:#f2f2f2;  /* Mantido igual ao original */
-    color:#222;
+/* Cards */
+.lista { display:grid; grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); gap:12px; margin-top:12px;}
+.card { background:#071227; padding:12px; border-radius:8px; text-align:left; transition:.35s; transform:translateY(0); }
+.card:hover { transform:translateY(-6px); box-shadow:0 0 14px rgba(118,228,197,.25); }
+
+.card.full { max-width:100%; }
+
+/* Status */
+.badge { display:inline-block; padding:6px 10px; border-radius:20px; font-size:12px; margin-top:6px; text-transform:capitalize; } 
+.badge.ok { background:#052e16; color:#8ef3b5; }
+.badge.alerta { background:#2b2410; color:#ffd27a; }
+.badge.erro { background:#2a0a0a; color:#ff9b9b; }
+
+.erro { color:#ff9b9b; }
+.ok { color:#8ef3b5; }
+
+/* Botão de voto */
+.vote-btn {
+    display:inline-block; padding:8px 14px; margin-right:8px; border-radius:6px; border:0;
+    cursor:pointer; background:#0ea5a9; color:#062022; font-weight:bold;
+    transition:.25s ease; transform:translateY(0);
+}
+.vote-btn:hover { transform:scale(1.08); filter:brightness(1.15); }
+.vote-btn:active { transform:scale(0.92); }
+
+/* ==================== ANIMAÇÕES ADICIONADAS ==================== */
+
+/* Animação de entrada suave */
+.fade-in{
+    animation:fadeUp .8s ease forwards;
 }
 
-.container{
-    width:80%;
-    max-width:900px;
-    background:white;
-    margin:40px auto;
-    padding:30px;
-    border-radius:10px;
-    border:1px solid #ccc;
-    animation:fadeIn .7s ease; /* Entrada com animação */
+@keyframes fadeUp{
+    from{ opacity:0; transform:translateY(15px); }
+    to{ opacity:1; transform:translateY(0); }
 }
 
-/* Animação suave de entrada */
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(10px);}
-    to{opacity:1; transform:translateY(0);}
+/* Efeito suave ao carregar qualquer card */
+.card { animation:fadeCard .7s ease; }
+@keyframes fadeCard{
+    from{ opacity:0; transform:scale(.96); }
+    to{ opacity:1; transform:scale(1); }
 }
 
-/* ====================== TÍTULOS ====================== */
-
-h1, h2, h3{
-    text-align:center;
-    margin-bottom:15px;
+/* Brilho pulsante para botões (opcional—ativável com class="pulse") */
+.pulse{
+    animation:pulse 1.6s infinite ease-in-out;
+}
+@keyframes pulse{
+    0%{ transform:scale(1); filter:brightness(1);}
+    50%{ transform:scale(1.07); filter:brightness(1.25);}
+    100%{ transform:scale(1); filter:brightness(1);}
 }
 
-/* ====================== BOTÕES ====================== */
-
-button, .btn-admin, input[type=submit], .vote{
-    padding:10px 18px;
-    border-radius:6px;
-    border:none;
-    background:#0077ff;      /* Cor continua simples */
-    color:white;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-    margin:5px;
-    transition:.25s ease;    /* >>> Animação ativada */
-}
-
-button:hover, .btn-admin:hover, input[type=submit]:hover, .vote:hover{
-    transform:scale(1.08);   /* Cresce no hover */
-    filter:brightness(1.2);
-}
-
-button:active, .vote:active, .btn-admin:active{
-    transform:scale(.93);    /* Aperta no clique */
-}
-
-/* ====================== LINKS ====================== */
-
-a{
-    text-decoration:none;
-    color:#0077ff;
-    font-weight:bold;
-    transition:.3s;
-}
-
-a:hover{
-    letter-spacing:1px;
-    opacity:.75;
-}
-
-/* ====================== RESULTADO ====================== */
-
-.resultado{
-    border:2px solid #ccc;
-    padding:18px;
-    border-radius:10px;
-    margin-bottom:25px;
-    transition:.3s;          /* animação adicionada */
-}
-
-.resultado:hover{
-    transform:translateY(-5px);
-    box-shadow:0 0 10px rgba(0,0,0,.15); /* brilho leve */
-}
-
-/* COLORAÇÕES ORIGINAIS MANTIDAS */
-.resultado.ok{border-color:#00c853}
-.resultado.alerta{border-color:#ffeb3b}
-.resultado.erro{border-color:#ff4444}
-
-/* ====================== ALERTAS ====================== */
-
-.ok,.alerta,.erro{
-    padding:10px;
-    border-radius:6px;
-    margin-top:10px;
-    text-align:center;
-    font-weight:bold;
-}
-
-.ok{background:#b9ffd8;}
-.alerta{background:#fff6a5;}
-.erro{background:#ffb9b9;}
-
-/* ====================== GRÁFICO ====================== */
-
-canvas{
-    margin:20px auto;
-    display:block;
-}
