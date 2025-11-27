@@ -34,16 +34,17 @@ Sistema web que permite pesquisar notícias cadastradas, verificar se são confi
 
 ## 📁 Estrutura do projeto
 /FakeCheck
-│ index.php → Página inicial
-│ login.php → Login do usuário
-│ cadastro.php → Cadastro de conta
-│ resultado.php → Resultado da pesquisa + gráfico
-│ admin.php → Cadastro de notícias (somente logado)
-│ vote.php → Processa votos via AJAX
-│ conexao.php → Conexão com banco MySQL
-│ style.css → Tema e animações do site
-└── /database
-└── fakecheck.sql (opcional)
+│ index.php → Página inicial |
+
+│ login.php → Login do usuário |
+│ cadastro.php → Cadastro de conta |
+│ resultado.php → Resultado da pesquisa + gráfico |
+│ admin.php → Cadastro de notícias (somente logado) |
+│ vote.php → Processa votos via AJAX |
+│ conexao.php → Conexão com banco MySQL |
+│ style.css → Tema e animações do site |
+└── /database |
+└── fakecheck.sql (opcional) |
 
 ---
 
