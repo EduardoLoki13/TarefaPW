@@ -33,7 +33,7 @@ Sistema web que permite pesquisar notícias cadastradas, verificar se são confi
 
 
 ## 📁 Estrutura do projeto
-''' texto
+```
 /FakeCheck
 │ index.php → Página inicial |
 
@@ -46,7 +46,7 @@ Sistema web que permite pesquisar notícias cadastradas, verificar se são confi
 │ style.css → Tema e animações do site |
 └── /database |
 └── fakecheck.sql (opcional) |
-
+```
 ---
 
 ## 🔐 Banco de dados (MySQL)
