@@ -33,6 +33,7 @@ Sistema web que permite pesquisar notícias cadastradas, verificar se são confi
 
 
 ## 📁 Estrutura do projeto
+''' texto
 /FakeCheck
 │ index.php → Página inicial |
 
